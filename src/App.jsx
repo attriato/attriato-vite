@@ -47,7 +47,7 @@ const pageSchemas = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "Attriato",
-    url: "https://attriato.com/",
+    url: "https://www.attriato.com/",
     description:
       "Attriato helps businesses improve GA4 implementation, GTM setup, conversion tracking, and analytics reporting.",
     email: "attriato@gmail.com",
@@ -81,7 +81,7 @@ const pageSchemas = {
     provider: {
       "@type": "Organization",
       name: "Attriato",
-      url: "https://attriato.com/",
+      url: "https://www.attriato.com/",
       email: "attriato@gmail.com",
     },
     areaServed: "Worldwide",
@@ -92,35 +92,35 @@ const pageSchemas = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     name: "About Attriato",
-    url: "https://attriato.com/about",
+    url: "https://www.attriato.com/about",
     description:
       "Attriato helps teams improve their measurement stack, reporting, and marketing performance through cleaner analytics foundations.",
     mainEntity: {
       "@type": "Organization",
       name: "Attriato",
       email: "attriato@gmail.com",
-      url: "https://attriato.com/",
+      url: "https://www.attriato.com/",
     },
   },
   "/contact": {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Contact Attriato",
-    url: "https://attriato.com/contact",
+    url: "https://www.attriato.com/contact",
     description:
       "Contact Attriato for GA4 setup, GTM consulting, reporting support, and analytics strategy guidance.",
     mainEntity: {
       "@type": "Organization",
       name: "Attriato",
       email: "attriato@gmail.com",
-      url: "https://attriato.com/",
+      url: "https://www.attriato.com/",
     },
   },
   "/search-jobs": {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "GA4 & GTM Jobs",
-    url: "https://attriato.com/search-jobs",
+    url: "https://www.attriato.com/search-jobs",
     description:
       "Recent GA4, Google Analytics, and Google Tag Manager job opportunities from the last 30 days.",
     mainEntity: {
@@ -136,13 +136,13 @@ const pageSchemas = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Privacy Policy",
-    url: "https://attriato.com/privacy-policy",
+    url: "https://www.attriato.com/privacy-policy",
     description:
       "Attriato's privacy policy covering analytics, cookies, pixels, advertising data collection, and website tracking practices.",
     publisher: {
       "@type": "Organization",
       name: "Attriato",
-      url: "https://attriato.com/",
+      url: "https://www.attriato.com/",
     },
   },
 };
@@ -161,7 +161,7 @@ function SEOUpdater() {
   const schema = pageSchemas[pathname] || pageSchemas["/"];
 
   useEffect(() => {
-    const baseUrl = "https://attriato.com";
+    const baseUrl = "https://www.attriato.com";
     const canonicalUrl = `${baseUrl}${pathname === "/" ? "" : pathname}`;
 
     const setMeta = (selector, attributes) => {
