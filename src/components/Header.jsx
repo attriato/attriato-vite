@@ -17,7 +17,7 @@ export default function Header() {
       <div className="container">
         <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
           <img
-            src="/public/images/attriato-logo.png"
+            src="/images/attriato-logo.png"
             alt="site logo"
             style={{ maxWidth: 150 }}
           />

@@ -33,7 +33,7 @@ export default function About() {
 
           <img
             className="about-hero-image"
-            src="/public/images/2264360111.jpg"
+            src="/images/2264360111.jpg"
             alt="Analytics and strategy professional"
           />
         </div>
@@ -42,7 +42,7 @@ export default function About() {
       <section className="section section--raised">
         <div className="container split">
           <img
-            src="/public/images/2214727193.jpg"
+            src="/images/2214727193.jpg"
             alt=""
           />
           <div>
@@ -84,7 +84,7 @@ export default function About() {
             <Link to="/services" className="btn btn-ghost">See Services</Link>
           </div>
           <img
-            src="/public/images/1174300472.jpg"
+            src="/images/1174300472.jpg"
             alt=""
           />
         </div>

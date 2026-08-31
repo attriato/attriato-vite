@@ -23,19 +23,19 @@ const TESTIMONIALS = [
     quote: "Attriato helped us fix tracking gaps and finally trust the numbers we were using to guide campaign decisions.",
     name: "Maya Chen",
     role: "Marketing Director",
-    img: "/public/images/951541862.jpg",
+    img: "/images/951541862.jpg",
   },
   {
     quote: "The implementation was organized, thoughtful, and easy for our team to understand. Reporting became much clearer.",
     name: "Daniel Brooks",
     role: "Growth Lead",
-    img: "/public/images/1355110818.jpg",
+    img: "/images/1355110818.jpg",
   },
   {
     quote: "We now have cleaner event tracking, better conversion visibility, and a much stronger foundation for optimization.",
     name: "Alicia Romero",
     role: "Operations Manager",
-    img: "/public/images/2222619409.jpg",
+    img: "/images/2222619409.jpg",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function Home() {
 
           <img
             className="hero-image-replacement"
-            src="/public/images/2278418314.jpg"
+            src="/images/2278418314.jpg"
             alt="Analytics and marketing team"
           />
         </div>
@@ -103,7 +103,7 @@ export default function Home() {
 
             <img
               className="process-visual"
-              src="/public/images/1461603921.jpg"
+              src="/images/1461603921.jpg"
               alt="Analytics team collaborating"
             />
 
@@ -142,7 +142,7 @@ export default function Home() {
             </div>
           </div>
           <img
-            src="/public/images/604340916.jpg"
+            src="/images/604340916.jpg"
             alt=""
           />
         </div>
@@ -178,11 +178,11 @@ export default function Home() {
             </p>
             <div className="logo-row">
               <img
-                src="/public/images/sacrd_logo.png"
+                src="/images/sacrd_logo.png"
                 alt="Sacred logo"
               />
               <img
-                src="/public/images/Downtown-Partnership-Logo.png"
+                src="/images/Downtown-Partnership-Logo.png"
                 alt="Downtown Colorado Springs"
               />
             </div>

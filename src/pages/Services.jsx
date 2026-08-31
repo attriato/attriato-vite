@@ -44,7 +44,7 @@ export default function Services() {
 
           <img
             className="services-hero-image"
-            src="/public/images/2285381238.jpg"
+            src="/images/2285381238.jpg"
             alt="Analytics consulting team"
           />
         </div>

@@ -78,7 +78,7 @@ export default function Contact() {
 
           <img
             className="contact-hero-image"
-            src="/public/images/1408262068.jpg"
+            src="/images/1408262068.jpg"
             alt="Team discussing analytics and reporting"
           />
         </div>
