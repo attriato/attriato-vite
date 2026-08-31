@@ -8,6 +8,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import SearchJobs from "./pages/SearchJobs.jsx";
 import Privacy from "./pages/Privacy.jsx";
+import { pushPageViewToGTM } from "./utils/gtmTracking.js";
 
 const pageMeta = {
   "/": {
@@ -198,11 +199,28 @@ function SEOUpdater() {
   return null;
 }
 
+function GTMTracker() {
+  const { pathname } = useLocation();
+  const meta = pageMeta[pathname] || pageMeta["/"];
+
+  useEffect(() => {
+    const baseUrl = "https://www.attriato.com";
+    const pageLocation = `${baseUrl}${pathname === "/" ? "" : pathname}`;
+    const pageTitle = meta.title;
+
+    // Push page_view event to GTM dataLayer
+    pushPageViewToGTM(pageTitle, pageLocation);
+  }, [pathname, meta]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <>
       <ScrollToTop />
       <SEOUpdater />
+      <GTMTracker />
       <Header />
       <main>
         <Routes>
