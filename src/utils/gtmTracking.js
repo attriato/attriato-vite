@@ -32,6 +32,15 @@ const stripHashRouting = (url) => {
 };
 
 /**
+ * Get the current route path, resolving HashRouter's "#" segment
+ * @returns {string} Path without the "/#" hash routing segment
+ */
+const getPagePath = () => {
+  const { pathname, hash } = window.location;
+  return hash ? hash.replace(/^#/, "") || "/" : pathname;
+};
+
+/**
  * Check if a URL is outbound (exits the current domain)
  * @param {string} url - The URL to check
  * @returns {string} "Y" if outbound, "N" if same domain
@@ -59,7 +68,7 @@ const cleanLinkText = (text) => {
 
 /**
  * Generic event push to GTM dataLayer
- * Always includes: event, dl.page_title, dl.page_location, dl.timestamp
+ * Always includes: event, dl.page_title, dl.page_location, dl.page_path, dl.timestamp
  * @param {string} eventName - The name of the event
  * @param {object} additionalData - Additional properties to include
  */
@@ -68,12 +77,14 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
 
   const pageTitle = document.title || "";
   const pageLocation = stripHashRouting(window.location.href);
+  const pagePath = getPagePath();
   const timestamp = getUsCentralTime();
 
   window.dataLayer.push({
     event: eventName,
     "dl.page_title": pageTitle,
     "dl.page_location": pageLocation,
+    "dl.page_path": pagePath,
     "dl.timestamp": timestamp,
     ...additionalData,
   });
@@ -88,6 +99,7 @@ export const pushPageView = (pageTitle, pageLocation) => {
   pushToDataLayer("page_view", {
     "dl.page_title": pageTitle || document.title,
     "dl.page_location": pageLocation || stripHashRouting(window.location.href),
+    "dl.page_path": getPagePath(),
   });
 };
 
