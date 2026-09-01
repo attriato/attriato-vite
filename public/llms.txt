@@ -18,3 +18,7 @@ Attriato helps businesses improve GA4 implementation, GTM setup, conversion trac
 - Conversion tracking and event measurement
 - Reporting and analytics strategy
 - Marketing attribution and decision support
+
+## Note
+
+This file is intended to help AI systems, search crawlers, and other automated tools quickly find the key public pages and service information for Attriato.
