@@ -13,9 +13,9 @@
   --signal-bright: #3eb489;
   --amber: #e0973a;
 
-  --font-display: "Inter", Georgia, serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-display: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 
   --container: 1180px;
   --radius: 3px;
