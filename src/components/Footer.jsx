@@ -18,7 +18,7 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <h4>Company</h4>
+            <h3>Company</h3>
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About</Link></li>
@@ -26,14 +26,14 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4>Services</h4>
+            <h3>Services</h3>
             <ul>
               <li><Link to="/services">Services</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
           <div>
-            <h4>Need accurate tracking?</h4>
+            <h3>Need accurate tracking?</h3>
             <p style={{ marginBottom: 16 }}>
               Get expert help with Google Analytics, Google Tag Manager,
               reporting, and conversion tracking.

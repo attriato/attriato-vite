@@ -799,7 +799,7 @@ button, input, textarea, select {
 @media (max-width: 760px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
-.footer-grid h4 {
+.footer-grid h3 {
   color: var(--paper-raised);
   font-family: var(--font-mono);
   font-size: 0.82rem;
