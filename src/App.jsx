@@ -8,7 +8,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import SearchJobs from "./pages/SearchJobs.jsx";
 import Privacy from "./pages/Privacy.jsx";
-import { pushPageView } from "./utils/gtmTracking.js";
+import { pushPageView, initLinkTracking } from "./utils/gtmTracking.js";
 
 const pageMeta = {
   "/": {
@@ -156,6 +156,14 @@ function ScrollToTop() {
   return null;
 }
 
+function InitializeTracking() {
+  useEffect(() => {
+    // Initialize automatic link click tracking on app load
+    initLinkTracking();
+  }, []);
+  return null;
+}
+
 function SEOUpdater() {
   const { pathname } = useLocation();
   const meta = pageMeta[pathname] || pageMeta["/"];
@@ -218,6 +226,7 @@ function GTMTracker() {
 export default function App() {
   return (
     <>
+      <InitializeTracking />
       <ScrollToTop />
       <SEOUpdater />
       <GTMTracker />

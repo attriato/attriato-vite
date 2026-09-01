@@ -4,7 +4,7 @@
 
 /**
  * Get current US Central Time as a formatted string
- * @returns {string} Formatted timestamp in US Central Time
+ * @returns {string} Formatted timestamp in US Central Time with AM/PM
  */
 const getUsCentralTime = () => {
   const now = new Date();
@@ -16,7 +16,7 @@ const getUsCentralTime = () => {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    hour12: false,
+    hour12: true,
   });
   return formatter.format(now);
 };
@@ -40,7 +40,7 @@ const isOutboundLink = (url) => {
 /**
  * Extract and clean link text
  * @param {string} text - The raw text
- * @returns {string} Lowercase text truncated to 100 characters
+ * @returns {string} Text truncated to 100 characters
  */
 const cleanLinkText = (text) => {
   if (!text) return "";
