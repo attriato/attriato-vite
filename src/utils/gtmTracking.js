@@ -86,7 +86,7 @@ export const pushPageView = (pageTitle, pageLocation) => {
  * @param {HTMLElement} element - The clicked link or button element
  * @param {string} customEventName - Optional custom event name (default: "link_click")
  */
-export const pushLinkClick = (element, customEventName = "link_click") => {
+export const pushLinkClick = (element, customEventName = "click") => {
   if (!element) return;
 
   const href = element.getAttribute("href") || "";
