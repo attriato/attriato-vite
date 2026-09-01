@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
 import { pushContactFormSubmission } from "../utils/gtmTracking.js";
 
 
@@ -20,7 +19,7 @@ export default function Contact() {
     return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!form.name || !form.email || !form.phone || !form.help || !form.details) {
       setStatus("Please fill in all required fields before sending.");
@@ -39,31 +38,32 @@ export default function Contact() {
     setIsSending(true);
     setStatus("Sending your message...");
 
-    emailjs
-      .send(serviceId, templateId, {
-        from_name: form.name,
-        from_email: form.email,
-        phone: form.phone,
-        help: form.help,
-        details: form.details,
-      }, {
-        publicKey,
-      })
-      .then(() => {
-        // Push contact form submission event to GTM
-        pushContactFormSubmission("contact-form");
+    try {
+      const emailjs = (await import("@emailjs/browser")).default;
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone,
+          help: form.help,
+          details: form.details,
+        },
+        { publicKey }
+      );
 
-        setStatus(`✓ Thanks, ${form.name}. Your inquiry has been sent successfully.`);
-        setForm({ name: "", email: "", phone: "", help: "", details: "" });
-      })
+      // Push contact form submission event to GTM
+      pushContactFormSubmission("contact-form");
 
-      .catch((error) => {
-        console.error("EmailJS error:", error);
-        setStatus("Something went wrong while sending the form. Please email attriato@gmail.com directly.");
-      })
-      .finally(() => {
-        setIsSending(false);
-      });
+      setStatus(`✓ Thanks, ${form.name}. Your inquiry has been sent successfully.`);
+      setForm({ name: "", email: "", phone: "", help: "", details: "" });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setStatus("Something went wrong while sending the form. Please email attriato@gmail.com directly.");
+    } finally {
+      setIsSending(false);
+    }
   }
 
   return (
