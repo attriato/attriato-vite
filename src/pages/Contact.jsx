@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { pushContactFormSubmission } from "../utils/gtmTracking.js";
 
 
 const FAQ = [
@@ -53,8 +52,13 @@ export default function Contact() {
         { publicKey }
       );
 
-      // Push contact form submission event to GTM
-      pushContactFormSubmission("contact-form");
+      // Lazy-load and push contact form submission event to GTM
+      try {
+        const { pushContactFormSubmission } = await import("../utils/gtmTracking.js");
+        pushContactFormSubmission("contact-form");
+      } catch (gtmError) {
+        console.warn("Failed to track contact submission:", gtmError);
+      }
 
       setStatus(`✓ Thanks, ${form.name}. Your inquiry has been sent successfully.`);
       setForm({ name: "", email: "", phone: "", help: "", details: "" });
