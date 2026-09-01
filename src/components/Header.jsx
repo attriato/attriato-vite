@@ -20,6 +20,8 @@ export default function Header() {
             src="/images/attriato-logo.png"
             alt="site logo"
             style={{ maxWidth: 150 }}
+            fetchPriority="high"
+            decoding="async"
           />
         </NavLink>
 

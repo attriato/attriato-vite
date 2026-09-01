@@ -35,6 +35,8 @@ export default function About() {
             className="about-hero-image"
             src="/images/2264360111.jpg"
             alt="Analytics and strategy professional"
+            fetchPriority="high"
+            decoding="async"
           />
         </div>
       </section>
@@ -44,6 +46,8 @@ export default function About() {
           <img
             src="/images/2214727193.jpg"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
           <div>
             <h2>A practical partner for analytics clarity</h2>
@@ -86,6 +90,8 @@ export default function About() {
           <img
             src="/images/1174300472.jpg"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </section>
