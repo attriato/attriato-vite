@@ -7,10 +7,6 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="brand" style={{ color: "#f8f9f5", marginBottom: 14 }}>
-              <span className="brand-mark" aria-hidden="true" />
-              Attriato
-            </div>
             <p>
               Professional consulting services for Google Analytics and Google
               Tag Manager setup, tracking strategy, reporting, and

@@ -121,7 +121,6 @@ export default function SearchJobs() {
 
       <section className="section section--dark">
         <div className="container cta-band">
-          <span className="eyebrow">hiring</span>
           <h2>Need Help With Analytics Hiring?</h2>
           <p style={{ maxWidth: 560, margin: "0 auto" }}>
             If you are hiring for a remote analytics or tag management role,
