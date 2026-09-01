@@ -42,15 +42,18 @@ export default function Services() {
             </div>
           </div>
 
-          <img
-            className="services-hero-image"
-            src="/images/2285381238.jpg"
-            alt="Analytics consulting team"
-            width={600}
-            height={450}
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/2285381238.webp" type="image/webp" />
+            <img
+              className="services-hero-image"
+              src="/images/2285381238.jpg"
+              alt="Analytics consulting team"
+              width={600}
+              height={450}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
 

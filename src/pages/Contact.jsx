@@ -86,15 +86,18 @@ export default function Contact() {
             </div>
           </div>
 
-          <img
-            className="contact-hero-image"
-            src="/images/1408262068.jpg"
-            alt="Team discussing analytics and reporting"
-            width={600}
-            height={450}
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/1408262068.webp" type="image/webp" />
+            <img
+              className="contact-hero-image"
+              src="/images/1408262068.jpg"
+              alt="Team discussing analytics and reporting"
+              width={600}
+              height={450}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
 

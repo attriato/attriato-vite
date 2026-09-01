@@ -16,15 +16,18 @@ export default function Header() {
     <header className="site-header">
       <div className="container">
         <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
-          <img
-            src="/images/attriato-logo.png"
-            alt="site logo"
-            width={150}
-            height={60}
-            style={{ maxWidth: 150 }}
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/attriato-logo.webp" type="image/webp" />
+            <img
+              src="/images/attriato-logo.png"
+              alt="site logo"
+              width={150}
+              height={60}
+              style={{ maxWidth: 150 }}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </NavLink>
 
         <nav className="nav">

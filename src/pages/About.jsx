@@ -31,28 +31,34 @@ export default function About() {
             </div>
           </div>
 
-          <img
-            className="about-hero-image"
-            src="/images/2264360111.jpg"
-            alt="Analytics and strategy professional"
-            width={600}
-            height={450}
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/2264360111.webp" type="image/webp" />
+            <img
+              className="about-hero-image"
+              src="/images/2264360111.jpg"
+              alt="Analytics and strategy professional"
+              width={600}
+              height={450}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
 
       <section className="section section--raised">
         <div className="container split">
-          <img
-            src="/images/2214727193.jpg"
-            alt=""
-            width={600}
-            height={450}
-            loading="lazy"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/2214727193.webp" type="image/webp" />
+            <img
+              src="/images/2214727193.jpg"
+              alt=""
+              width={600}
+              height={450}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <div>
             <h2>A practical partner for analytics clarity</h2>
             <p>
@@ -91,14 +97,17 @@ export default function About() {
             </p>
             <Link to="/services" className="btn btn-ghost">See Services</Link>
           </div>
-          <img
-            src="/images/1174300472.jpg"
-            alt=""
-            width={600}
-            height={450}
-            loading="lazy"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/1174300472.webp" type="image/webp" />
+            <img
+              src="/images/1174300472.jpg"
+              alt=""
+              width={600}
+              height={450}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
 

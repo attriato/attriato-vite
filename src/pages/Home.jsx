@@ -23,19 +23,19 @@ const TESTIMONIALS = [
     quote: "Attriato helped us fix tracking gaps and finally trust the numbers we were using to guide campaign decisions.",
     name: "Maya Chen",
     role: "Marketing Director",
-    img: "/images/951541862.jpg",
+    imgBase: "951541862",
   },
   {
     quote: "The implementation was organized, thoughtful, and easy for our team to understand. Reporting became much clearer.",
     name: "Daniel Brooks",
     role: "Growth Lead",
-    img: "/images/1355110818.jpg",
+    imgBase: "1355110818",
   },
   {
     quote: "We now have cleaner event tracking, better conversion visibility, and a much stronger foundation for optimization.",
     name: "Alicia Romero",
     role: "Operations Manager",
-    img: "/images/2222619409.jpg",
+    imgBase: "2222619409",
   },
 ];
 
@@ -57,15 +57,18 @@ export default function Home() {
             </div>
           </div>
 
-          <img
-            className="hero-image-replacement"
-            src="/images/2278418314.jpg"
-            alt="Analytics and marketing team"
-            width={600}
-            height={450}
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/2278418314.webp" type="image/webp" />
+            <img
+              className="hero-image-replacement"
+              src="/images/2278418314.jpg"
+              alt="Analytics and marketing team"
+              width={600}
+              height={450}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
 
@@ -105,15 +108,18 @@ export default function Home() {
               ))}
             </ol>
 
-            <img
-              className="process-visual"
-              src="/images/1461603921.jpg"
-              alt="Analytics team collaborating"
-              width={640}
-              height={360}
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcSet="/images/1461603921.webp" type="image/webp" />
+              <img
+                className="process-visual"
+                src="/images/1461603921.jpg"
+                alt="Analytics team collaborating"
+                width={640}
+                height={360}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
 
             <ol className="process-list process-list--right">
               {PROCESS.slice(2).map((p) => (
@@ -149,14 +155,17 @@ export default function Home() {
               <Link to="/about" className="btn btn-ghost">Learn More</Link>
             </div>
           </div>
-          <img
-            src="/images/604340916.jpg"
-            alt=""
-            width={600}
-            height={450}
-            loading="lazy"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/images/604340916.webp" type="image/webp" />
+            <img
+              src="/images/604340916.jpg"
+              alt=""
+              width={600}
+              height={450}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
 
@@ -173,7 +182,10 @@ export default function Home() {
                 <div className="stars">★★★★★</div>
                 <p style={{ marginBottom: 0 }}>{t.quote}</p>
                 <div className="testimonial-person">
-                  <img src={t.img} alt={t.name} width={44} height={44} loading="lazy" decoding="async" />
+                  <picture>
+                    <source srcSet={`/images/${t.imgBase}.webp`} type="image/webp" />
+                    <img src={`/images/${t.imgBase}.jpg`} alt={t.name} width={44} height={44} loading="lazy" decoding="async" />
+                  </picture>
                   <div>
                     <strong>{t.name}</strong>
                     <span>{t.role}</span>
