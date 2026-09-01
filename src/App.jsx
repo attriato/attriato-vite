@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
-import Home from "./pages/Home.jsx";
-import Services from "./pages/Services.jsx";
-import About from "./pages/About.jsx";
-import Contact from "./pages/Contact.jsx";
-import SearchJobs from "./pages/SearchJobs.jsx";
-import Privacy from "./pages/Privacy.jsx";
 import { pushPageView, initLinkTracking } from "./utils/gtmTracking.js";
+
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Services = lazy(() => import("./pages/Services.jsx"));
+const About = lazy(() => import("./pages/About.jsx"));
+const Contact = lazy(() => import("./pages/Contact.jsx"));
+const SearchJobs = lazy(() => import("./pages/SearchJobs.jsx"));
+const Privacy = lazy(() => import("./pages/Privacy.jsx"));
 
 const pageMeta = {
   "/": {
@@ -236,14 +237,16 @@ export default function App() {
       <GTMTracker />
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/search-jobs" element={<SearchJobs />} />
-          <Route path="/privacy-policy" element={<Privacy />} />
-        </Routes>
+        <Suspense fallback={<div aria-live="polite" style={{ minHeight: "40vh" }} /> }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/search-jobs" element={<SearchJobs />} />
+            <Route path="/privacy-policy" element={<Privacy />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </>
