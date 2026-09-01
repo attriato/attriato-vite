@@ -67,8 +67,32 @@ const cleanLinkText = (text) => {
 };
 
 /**
+ * Read a cookie value by name
+ * @param {string} name - The cookie name
+ * @returns {string} The decoded cookie value, or an empty string if not found
+ */
+const getCookieValue = (name) => {
+  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : "";
+};
+
+/**
+ * Get the CookieYes consent state, excluding the consentid/consent/action keys
+ * @returns {string} Comma-separated "key:value" consent categories
+ */
+const getConsentMode = () => {
+  const raw = getCookieValue("cookieyes-consent");
+  if (!raw) return "";
+  const excludedKeys = ["consentid", "consent", "action"];
+  return raw
+    .split(",")
+    .filter((pair) => !excludedKeys.includes(pair.split(":")[0]))
+    .join(",");
+};
+
+/**
  * Generic event push to GTM dataLayer
- * Always includes: event, dl.page_title, dl.page_location, dl.page_path, dl.timestamp
+ * Always includes: event, dl.page_title, dl.page_location, dl.page_path, dl.timestamp, dl.consent_mode
  * @param {string} eventName - The name of the event
  * @param {object} additionalData - Additional properties to include
  */
@@ -86,6 +110,7 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
     "dl.page_location": pageLocation,
     "dl.page_path": pagePath,
     "dl.timestamp": timestamp,
+    "dl.consent_mode": getConsentMode(),
     ...additionalData,
   });
 };
