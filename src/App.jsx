@@ -8,7 +8,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import SearchJobs from "./pages/SearchJobs.jsx";
 import Privacy from "./pages/Privacy.jsx";
-import { pushPageViewToGTM } from "./utils/gtmTracking.js";
+import { pushPageView } from "./utils/gtmTracking.js";
 
 const pageMeta = {
   "/": {
@@ -209,7 +209,7 @@ function GTMTracker() {
     const pageTitle = meta.title;
 
     // Push page_view event to GTM dataLayer
-    pushPageViewToGTM(pageTitle, pageLocation);
+    pushPageView(pageTitle, pageLocation);
   }, [pathname, meta]);
 
   return null;

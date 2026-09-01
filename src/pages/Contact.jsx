@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { pushContactFormSubmission } from "../utils/gtmTracking.js";
+
 
 const FAQ = [
   { q: "What types of businesses do you work with?", a: "Attriato supports data-driven businesses that want more accurate analytics, stronger reporting, and better visibility into marketing performance." },
@@ -48,9 +50,13 @@ export default function Contact() {
         publicKey,
       })
       .then(() => {
+        // Push contact form submission event to GTM
+        pushContactFormSubmission("contact-form");
+
         setStatus(`✓ Thanks, ${form.name}. Your inquiry has been sent successfully.`);
         setForm({ name: "", email: "", phone: "", help: "", details: "" });
       })
+
       .catch((error) => {
         console.error("EmailJS error:", error);
         setStatus("Something went wrong while sending the form. Please email attriato@gmail.com directly.");
