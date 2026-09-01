@@ -22,6 +22,16 @@ const getUsCentralTime = () => {
 };
 
 /**
+ * Strip the HashRouter "/#" segment from a URL so GTM sees clean paths
+ * @param {string} url - The URL to clean
+ * @returns {string} URL without the "/#" hash routing segment
+ */
+const stripHashRouting = (url) => {
+  if (!url) return url;
+  return url.replace(/\/#(?=\/|$)/, "");
+};
+
+/**
  * Check if a URL is outbound (exits the current domain)
  * @param {string} url - The URL to check
  * @returns {string} "Y" if outbound, "N" if same domain
@@ -57,7 +67,7 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
   if (!window.dataLayer) return;
 
   const pageTitle = document.title || "";
-  const pageLocation = window.location.href;
+  const pageLocation = stripHashRouting(window.location.href);
   const timestamp = getUsCentralTime();
 
   window.dataLayer.push({
@@ -77,7 +87,7 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
 export const pushPageView = (pageTitle, pageLocation) => {
   pushToDataLayer("page_view", {
     "dl.page_title": pageTitle || document.title,
-    "dl.page_location": pageLocation || window.location.href,
+    "dl.page_location": pageLocation || stripHashRouting(window.location.href),
   });
 };
 
