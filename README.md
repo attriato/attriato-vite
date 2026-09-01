@@ -9,10 +9,6 @@ Search Jobs, Privacy Policy) built with Vite.
 - **Palette:** ink navy `#0F1B2D`, paper `#EEF0EA`, signal green `#3EB489`,
   slate `#5C6670`, amber `#E0973A`.
 - **Type:** Fraunces (display) + Inter (body) + JetBrains Mono (data/labels).
-- **Signature element:** a hand-drawn, animated trend line in the hero
-  annotated with real GA4 event names (`page_view` → `generate_lead`) —
-  a visual thesis for "messy signal becoming a clear decision." The same
-  mono/dot "event marker" motif is reused as section eyebrows throughout.
 
 ## Run it
 
@@ -35,9 +31,3 @@ npm run preview    # preview the production build
   self-contained build.
 - The `/search-jobs` page uses a static snapshot of listings captured at
   crawl time — the live site pulls these dynamically from Adzuna.
-- `/privacy-policy` is a placeholder; the crawl didn't include that page's
-  copy, so drop in the real policy text.
-- Contact/consultation forms are client-side only (no backend) — they
-  validate and show a confirmation message. Wire `handleSubmit` in
-  `src/pages/Contact.jsx` and `src/pages/Services.jsx` up to your form
-  endpoint (Formspree, a serverless function, etc.) to make them live.
