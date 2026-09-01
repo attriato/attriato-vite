@@ -46,6 +46,8 @@ export default function Services() {
             className="services-hero-image"
             src="/images/2285381238.jpg"
             alt="Analytics consulting team"
+            width={600}
+            height={450}
             fetchPriority="high"
             decoding="async"
           />

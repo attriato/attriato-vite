@@ -19,6 +19,8 @@ export default function Header() {
           <img
             src="/images/attriato-logo.png"
             alt="site logo"
+            width={150}
+            height={60}
             style={{ maxWidth: 150 }}
             fetchPriority="high"
             decoding="async"

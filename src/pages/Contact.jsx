@@ -86,6 +86,8 @@ export default function Contact() {
             className="contact-hero-image"
             src="/images/1408262068.jpg"
             alt="Team discussing analytics and reporting"
+            width={600}
+            height={450}
             fetchPriority="high"
             decoding="async"
           />

@@ -61,6 +61,8 @@ export default function Home() {
             className="hero-image-replacement"
             src="/images/2278418314.jpg"
             alt="Analytics and marketing team"
+            width={600}
+            height={450}
             fetchPriority="high"
             decoding="async"
           />
@@ -107,6 +109,8 @@ export default function Home() {
               className="process-visual"
               src="/images/1461603921.jpg"
               alt="Analytics team collaborating"
+              width={640}
+              height={360}
               loading="lazy"
               decoding="async"
             />
@@ -148,6 +152,8 @@ export default function Home() {
           <img
             src="/images/604340916.jpg"
             alt=""
+            width={600}
+            height={450}
             loading="lazy"
             decoding="async"
           />
@@ -167,7 +173,7 @@ export default function Home() {
                 <div className="stars">★★★★★</div>
                 <p style={{ marginBottom: 0 }}>{t.quote}</p>
                 <div className="testimonial-person">
-                  <img src={t.img} alt={t.name} loading="lazy" decoding="async" />
+                  <img src={t.img} alt={t.name} width={44} height={44} loading="lazy" decoding="async" />
                   <div>
                     <strong>{t.name}</strong>
                     <span>{t.role}</span>
@@ -186,12 +192,16 @@ export default function Home() {
               <img
                 src="/images/sacrd_logo.png"
                 alt="Sacred logo"
+                width={120}
+                height={60}
                 loading="lazy"
                 decoding="async"
               />
               <img
                 src="/images/Downtown-Partnership-Logo.png"
                 alt="Downtown Colorado Springs"
+                width={120}
+                height={60}
                 loading="lazy"
                 decoding="async"
               />
