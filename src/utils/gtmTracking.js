@@ -82,9 +82,9 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
 
   window.dataLayer.push({
     event: eventName,
-    page_title: pageTitle,
-    page_location: pageLocation,
-    page_path: pagePath,
+    "dl.page_title": pageTitle,
+    "dl.page_location": pageLocation,
+    "dl.page_path": pagePath,
     "dl.timestamp": timestamp,
     ...additionalData,
   });
@@ -97,9 +97,9 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
  */
 export const pushPageView = (pageTitle, pageLocation) => {
   pushToDataLayer("page_view", {
-    page_title: pageTitle || document.title,
-    page_location: pageLocation || stripHashRouting(window.location.href),
-    page_path: getPagePath(),
+    "dl.page_title": pageTitle || document.title,
+    "dl.page_location": pageLocation || stripHashRouting(window.location.href),
+    "dl.page_path": getPagePath(),
   });
 };
 
