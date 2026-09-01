@@ -216,8 +216,12 @@ function GTMTracker() {
     const pageLocation = `${baseUrl}${pathname === "/" ? "" : pathname}`;
     const pageTitle = meta.title;
 
-    // Push page_view event to GTM dataLayer
-    pushPageView(pageTitle, pageLocation);
+    // Delay page_view event until DOM is loaded for the route
+    const timer = setTimeout(() => {
+      pushPageView(pageTitle, pageLocation);
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [pathname, meta]);
 
   return null;

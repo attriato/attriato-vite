@@ -93,7 +93,8 @@ export const pushLinkClick = (element, customEventName = "link_click") => {
   const text = element.textContent || element.innerText || "";
   const classes = element.className || "";
   const tagName = element.tagName.toLowerCase();
-  const linkType = tagName === "button" ? "button" : "link";
+  // Determine link type: button if tag is button or className contains 'btn'
+  const linkType = tagName === "button" || classes.includes("btn") ? "button" : "link";
   const linkDomain = href ? new URL(href, window.location.origin).hostname : "";
   const outbound = isOutboundLink(href);
 
