@@ -168,12 +168,17 @@ export const pushContactFormSubmission = (formId = "contact-form") => {
 /**
  * Setup automatic link click tracking
  * Attaches a listener to all links and buttons on the page
+ * Uses the capture phase so location is captured before React Router navigates
  */
 export const initLinkTracking = () => {
-  document.addEventListener("click", (e) => {
-    const target = e.target.closest("a, button");
-    if (target) {
-      pushLinkClick(target);
-    }
-  });
+  document.addEventListener(
+    "click",
+    (e) => {
+      const target = e.target.closest("a, button");
+      if (target) {
+        pushLinkClick(target);
+      }
+    },
+    true
+  );
 };
