@@ -45,8 +45,8 @@ export const pageSchemas = {
     description:
       "Attriato helps businesses improve GA4 implementation, GTM setup, conversion tracking, and analytics reporting.",
     email: "attriato@gmail.com",
-    areaServed: "Worldwide",
-    knowsAbout: [
+    areaServed: "United States",
+    skills: [
       "GA4",
       "Google Analytics 4",
       "Google Tag Manager",
@@ -72,13 +72,7 @@ export const pageSchemas = {
       "Analytics Reporting",
       "Dashboard Design",
     ],
-    provider: {
-      "@type": "Organization",
-      name: "Attriato",
-      url: "https://www.attriato.com/",
-      email: "attriato@gmail.com",
-    },
-    areaServed: "Worldwide",
+    areaServed: "United States",
     description:
       "Attriato provides Google Analytics, GTM, conversion tracking, and reporting services to help businesses make better marketing decisions.",
   },
