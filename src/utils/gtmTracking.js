@@ -160,7 +160,7 @@ export const pushLinkClick = (element, customEventName = "click") => {
  * @param {string} formId - The ID of the form
  */
 export const pushContactFormSubmission = (formId = "contact-form") => {
-  pushToDataLayer("form_submit", {
+  pushToDataLayer("generate_lead", {
     "dl.form_id": formId,
   });
 };
