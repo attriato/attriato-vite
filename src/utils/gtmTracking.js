@@ -3,23 +3,10 @@
  */
 
 /**
- * Get current US Central Time as a formatted string
- * @returns {string} Formatted timestamp in US Central Time with AM/PM
+ * Get the current Unix timestamp in seconds
+ * @returns {number} Seconds since January 1, 1970 UTC
  */
-const getUsCentralTime = () => {
-  const now = new Date();
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Chicago",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-  return formatter.format(now);
-};
+const getUnixTime = () => Math.floor(Date.now() / 1000);
 
 /**
  * Strip the HashRouter "/#" segment from a URL so GTM sees clean paths
@@ -102,7 +89,7 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
   const pageTitle = document.title || "";
   const pageLocation = stripHashRouting(window.location.href);
   const pagePath = getPagePath();
-  const timestamp = getUsCentralTime();
+  const timestamp = getUnixTime();
 
   window.dataLayer.push({
     event: eventName,
