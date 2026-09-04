@@ -3,12 +3,6 @@
  */
 
 /**
- * Get the current Unix timestamp in seconds
- * @returns {number} Seconds since January 1, 1970 UTC
- */
-const getUnixTime = () => Math.floor(Date.now() / 1000);
-
-/**
  * Strip the HashRouter "/#" segment from a URL so GTM sees clean paths
  * @param {string} url - The URL to clean
  * @returns {string} URL without the "/#" hash routing segment
@@ -79,7 +73,7 @@ const getConsentMode = () => {
 
 /**
  * Generic event push to GTM dataLayer
- * Always includes: event, dl.page_title, dl.page_location, dl.page_path, dl.timestamp, dl.consent_mode
+ * Always includes: event, dl.page_title, dl.page_location, dl.page_path, dl.consent_mode
  * @param {string} eventName - The name of the event
  * @param {object} additionalData - Additional properties to include
  */
@@ -89,14 +83,12 @@ export const pushToDataLayer = (eventName, additionalData = {}) => {
   const pageTitle = document.title || "";
   const pageLocation = stripHashRouting(window.location.href);
   const pagePath = getPagePath();
-  const timestamp = getUnixTime();
 
   window.dataLayer.push({
     event: eventName,
     "dl.page_title": pageTitle,
     "dl.page_location": pageLocation,
     "dl.page_path": pagePath,
-    "dl.timestamp": timestamp,
     "dl.consent_mode": getConsentMode(),
     ...additionalData,
   });
