@@ -1,0 +1,11 @@
+{
+  "name": "Attriato Service Documentation",
+  "url": "https://www.attriato.com/",
+  "services": [
+    "GA4 implementation",
+    "Google Tag Manager implementation",
+    "Conversion measurement",
+    "Analytics reporting"
+  ],
+  "humanDocumentation": "https://www.attriato.com/#/services"
+}

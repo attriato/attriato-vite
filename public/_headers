@@ -1,0 +1,5 @@
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog"
+  Link: </service-description.json>; rel="service-desc"
+  Link: </service-doc.json>; rel="service-doc"
+  Link: </site-metadata.json>; rel="describedby"

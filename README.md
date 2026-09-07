@@ -31,3 +31,6 @@ npm run preview    # preview the production build
   self-contained build.
 - The `/search-jobs` page uses a static snapshot of listings captured at
   crawl time — the live site pulls these dynamically from Adzuna.
+- Cloudflare Pages reads `public/_headers` during deployment and adds RFC 8288
+  discovery links to the homepage. The linked JSON resources are emitted from
+  `public/` and should remain available at their documented paths.
