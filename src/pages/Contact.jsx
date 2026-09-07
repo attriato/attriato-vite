@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+const TURNSTILE_SITE_KEY = "0x4AAAAAAEYlBbGx1rj_trOF";
 
 const FAQ = [
   { q: "What types of businesses do you work with?", a: "Attriato supports data-driven businesses that want more accurate analytics, stronger reporting, and better visibility into marketing performance." },
@@ -13,6 +14,42 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", help: "", details: "" });
   const [status, setStatus] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileContainerRef = useRef(null);
+  const turnstileWidgetIdRef = useRef(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    let retryTimer;
+
+    function renderTurnstile() {
+      if (cancelled || !turnstileContainerRef.current) return;
+      if (!window.turnstile) {
+        retryTimer = window.setTimeout(renderTurnstile, 100);
+        return;
+      }
+
+      turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        action: "contact",
+        callback: (token) => setTurnstileToken(token),
+        "expired-callback": () => setTurnstileToken(""),
+        "error-callback": () => {
+          setTurnstileToken("");
+          setStatus("Turnstile could not verify this request. Please try again.");
+        },
+      });
+    }
+
+    renderTurnstile();
+    return () => {
+      cancelled = true;
+      window.clearTimeout(retryTimer);
+      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetIdRef.current);
+      }
+    };
+  }, []);
 
   function update(field) {
     return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -22,6 +59,10 @@ export default function Contact() {
     e.preventDefault();
     if (!form.name || !form.email || !form.phone || !form.help || !form.details) {
       setStatus("Please fill in all required fields before sending.");
+      return;
+    }
+    if (!turnstileToken) {
+      setStatus("Please complete the verification before sending.");
       return;
     }
 
@@ -67,6 +108,10 @@ export default function Contact() {
       setStatus("Something went wrong while sending the form. Please email attriato@gmail.com directly.");
     } finally {
       setIsSending(false);
+      setTurnstileToken("");
+      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetIdRef.current);
+      }
     }
   }
 
@@ -143,6 +188,7 @@ export default function Contact() {
               <label htmlFor="details">Project details*</label>
               <textarea id="details" required value={form.details} onChange={update("details")} />
             </div>
+            <div ref={turnstileContainerRef} aria-label="Cloudflare Turnstile verification" />
             <button type="submit" className="btn btn-primary" disabled={isSending}>
               {isSending ? "Sending..." : "Send Inquiry"}
             </button>
