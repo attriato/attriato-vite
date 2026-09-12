@@ -85,10 +85,20 @@ export default function Contact() {
         }),
       });
 
-      const result = await response.json().catch(() => ({}));
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        // Non-JSON response (e.g. 404 HTML on local dev server)
+      }
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to send message. Please email rich@attriato.com directly.");
+        const errorMsg =
+          result.error ||
+          (response.status === 404
+            ? "API endpoint (/api/contact) not found. If testing locally, Pages Functions only run when deployed to Cloudflare Pages."
+            : `Failed to send message (HTTP ${response.status}). Please email rich@attriato.com directly.`);
+        throw new Error(errorMsg);
       }
 
       // Lazy-load and push contact form submission event to GTM
