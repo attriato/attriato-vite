@@ -66,32 +66,30 @@ export default function Contact() {
       return;
     }
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_pfylbn4";
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    if (!templateId || !publicKey) {
-      setStatus("EmailJS is not fully configured yet. Add VITE_EMAILJS_TEMPLATE_ID and VITE_EMAILJS_PUBLIC_KEY to your .env file.");
-      return;
-    }
-
     setIsSending(true);
     setStatus("Sending your message...");
 
     try {
-      const emailjs = (await import("@emailjs/browser")).default;
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: form.name,
-          from_email: form.email,
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
           phone: form.phone,
           help: form.help,
           details: form.details,
-        },
-        { publicKey }
-      );
+          turnstileToken,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message. Please email rich@attriato.com directly.");
+      }
 
       // Lazy-load and push contact form submission event to GTM
       try {
@@ -104,8 +102,8 @@ export default function Contact() {
       setStatus(`✓ Thanks, ${form.name}. Your inquiry has been sent successfully.`);
       setForm({ name: "", email: "", phone: "", help: "", details: "" });
     } catch (error) {
-      console.error("EmailJS error:", error);
-      setStatus("Something went wrong while sending the form. Please email attriato@gmail.com directly.");
+      console.error("Contact form error:", error);
+      setStatus(error.message || "Something went wrong while sending the form. Please email rich@attriato.com directly.");
     } finally {
       setIsSending(false);
       setTurnstileToken("");

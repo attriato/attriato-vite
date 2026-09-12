@@ -44,7 +44,7 @@ export const pageSchemas = {
     url: "https://www.attriato.com/",
     description:
       "Attriato helps businesses improve GA4 implementation, GTM setup, conversion tracking, and analytics reporting.",
-    email: "attriato@gmail.com",
+    email: "rich@attriato.com",
     areaServed: "United States",
     skills: [
       "GA4",
@@ -57,7 +57,7 @@ export const pageSchemas = {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
-      email: "attriato@gmail.com",
+      email: "rich@attriato.com",
       availableLanguage: ["en"],
     },
   },
@@ -86,7 +86,7 @@ export const pageSchemas = {
     mainEntity: {
       "@type": "Organization",
       name: "Attriato",
-      email: "attriato@gmail.com",
+      email: "rich@attriato.com",
       url: "https://www.attriato.com/",
     },
   },
@@ -100,7 +100,7 @@ export const pageSchemas = {
     mainEntity: {
       "@type": "Organization",
       name: "Attriato",
-      email: "attriato@gmail.com",
+      email: "rich@attriato.com",
       url: "https://www.attriato.com/",
     },
   },
