@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function: /api/contact
  * Handles contact form submissions and delivers emails directly to rich@attriato.com
- * using Cloudflare's native Send Email binding (env.MAIL, env.SEB, or env.EMAIL).
+ * using the Resend API (https://resend.com).
  */
 
 export async function onRequestOptions() {
@@ -66,77 +66,30 @@ export async function onRequestPost(context) {
       }
     }
 
-    const toEmail = env.CONTACT_TO_EMAIL || "rich@attriato.com";
-    const fromEmail = env.CONTACT_FROM_EMAIL || "contact@attriato.com";
-    const mailBinding = env.MAIL || env.SEB || env.EMAIL;
-
-    if (!mailBinding || typeof mailBinding.send !== "function") {
-      console.error("Cloudflare Send Email binding is not attached in Pages settings.");
+    const resendApiKey = env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.error("RESEND_API_KEY is not configured in Cloudflare Pages environment variables.");
       return new Response(
         JSON.stringify({
-          error: "Email service is not bound in Cloudflare Pages. Please email rich@attriato.com directly.",
+          error: "Email delivery service is not configured yet. Please email rich@attriato.com directly.",
         }),
         { status: 503, headers: corsHeaders }
       );
     }
 
-    const rawMimeMessage = buildMimeMessage({
-      from: fromEmail,
-      to: toEmail,
-      replyTo: email,
-      subject: `New Attriato Inquiry: ${name} (${help})`,
-      name,
-      email,
-      phone,
-      help,
-      details,
-    });
+    const toEmail = env.CONTACT_TO_EMAIL || "rich@attriato.com";
+    // When using Resend without custom domain verification, Resend provides onboarding@resend.dev
+    // Once attriato.com is verified in Resend, you can change to contact@attriato.com
+    const fromEmail = env.CONTACT_FROM_EMAIL || "Attriato Contact <onboarding@resend.dev>";
 
-    await mailBinding.send({
-      from: fromEmail,
-      to: toEmail,
-      raw: rawMimeMessage,
-    });
-
-    return new Response(
-      JSON.stringify({ success: true, message: "Inquiry sent successfully." }),
-      { status: 200, headers: corsHeaders }
-    );
-  } catch (error) {
-    console.error("Error processing contact submission:", error);
-    return new Response(
-      JSON.stringify({
-        error: "An unexpected error occurred. Please email rich@attriato.com directly.",
-      }),
-      { status: 500, headers: corsHeaders }
-    );
-  }
-}
-
-function buildMimeMessage({ from, to, replyTo, subject, name, email, phone, help, details }) {
-  const boundary = `----=_Part_${Date.now()}_${Math.random().toString(36).substring(2)}`;
-  const dateStr = new Date().toUTCString();
-
-  const textBody = `
-New Attriato Contact Inquiry
-----------------------------
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-Service / Topic: ${help}
-
-Project Details:
-${details}
-`.trim();
-
-  const htmlBody = `
+    const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #0F1B2D; line-height: 1.6;">
   <div style="border-bottom: 2px solid #3EB489; padding-bottom: 12px; margin-bottom: 20px;">
     <h2 style="margin: 0; color: #0F1B2D;">New Attriato Contact Inquiry</h2>
-    <p style="margin: 4px 0 0; color: #5C6670; font-size: 14px;">Received on ${escapeHtml(dateStr)}</p>
+    <p style="margin: 4px 0 0; color: #5C6670; font-size: 14px;">Received on ${escapeHtml(new Date().toUTCString())}</p>
   </div>
   
   <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
@@ -168,31 +121,71 @@ ${details}
   </p>
 </body>
 </html>
-`.trim();
+    `.trim();
 
-  return [
-    `From: Attriato Contact Form <${from}>`,
-    `To: <${to}>`,
-    `Reply-To: ${name} <${replyTo}>`,
-    `Subject: ${subject}`,
-    `Date: ${dateStr}`,
-    `MIME-Version: 1.0`,
-    `Content-Type: multipart/alternative; boundary="${boundary}"`,
-    ``,
-    `--${boundary}`,
-    `Content-Type: text/plain; charset=UTF-8`,
-    `Content-Transfer-Encoding: 7bit`,
-    ``,
-    textBody,
-    ``,
-    `--${boundary}`,
-    `Content-Type: text/html; charset=UTF-8`,
-    `Content-Transfer-Encoding: 7bit`,
-    ``,
-    htmlBody,
-    ``,
-    `--${boundary}--`,
-  ].join("\r\n");
+    const textContent = `
+New Attriato Contact Inquiry
+----------------------------
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Service / Topic: ${help}
+
+Project Details:
+${details}
+    `.trim();
+
+    const resendRes = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [toEmail],
+        reply_to: email,
+        subject: `New Attriato Inquiry: ${name} (${help})`,
+        text: textContent,
+        html: htmlContent,
+      }),
+    });
+
+    const resendData = await resendRes.json();
+
+    if (!resendRes.ok) {
+      console.error("Resend API error:", resendData);
+      return new Response(
+        JSON.stringify({
+          error: resendData.message || "Failed to deliver message. Please email rich@attriato.com directly.",
+        }),
+        { status: resendRes.status, headers: corsHeaders }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ success: true, message: "Inquiry sent successfully." }),
+      { status: 200, headers: corsHeaders }
+    );
+  } catch (error) {
+    console.error("Error processing contact submission:", error);
+    return new Response(
+      JSON.stringify({
+        error: "An unexpected error occurred. Please email rich@attriato.com directly.",
+      }),
+      { status: 500, headers: corsHeaders }
+    );
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function escapeHtml(str) {
