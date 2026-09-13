@@ -157,9 +157,9 @@ ${details}
       console.error("Resend API error:", resendData);
       return new Response(
         JSON.stringify({
-          error: resendData.message || "Failed to deliver message. Please email rich@attriato.com directly.",
+          error: "Failed to deliver message. Please email rich@attriato.com directly.",
         }),
-        { status: resendRes.status, headers: corsHeaders }
+        { status: 502, headers: corsHeaders }
       );
     }
 
