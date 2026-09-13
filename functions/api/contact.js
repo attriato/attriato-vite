@@ -15,6 +15,27 @@ export async function onRequestOptions() {
   });
 }
 
+export async function onRequest(context) {
+  if (context.request.method === "OPTIONS") {
+    return onRequestOptions();
+  }
+
+  if (context.request.method === "POST") {
+    return onRequestPost(context);
+  }
+
+  return new Response(
+    JSON.stringify({ error: "Method not allowed. Use POST to submit the contact form." }),
+    {
+      status: 405,
+      headers: {
+        "Allow": "POST, OPTIONS",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 

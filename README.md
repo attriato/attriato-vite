@@ -34,3 +34,7 @@ npm run preview    # preview the production build
 - Cloudflare Pages reads `public/_headers` during deployment and adds RFC 8288
   discovery links to the homepage. The linked JSON resources are emitted from
   `public/` and should remain available at their documented paths.
+- The Cloudflare Pages project must use the repository root as its root
+  directory, `npm run build` as its build command, and `dist` as its output
+  directory. The root-level `functions/` directory must be included in the
+  deployment so `/api/contact` is handled by the Pages Function.
