@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function: /api/contact
  * Handles contact form submissions and delivers emails directly to rich@attriato.com
- * using the Resend API (https://resend.com).
+ * using the Resend API (https://resend.com) update.
  */
 
 export async function onRequestOptions() {
