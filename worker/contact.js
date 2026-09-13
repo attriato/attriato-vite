@@ -1,48 +1,37 @@
 /**
- * Cloudflare Pages Function: /api/contact
  * Handles contact form submissions and delivers emails directly to rich@attriato.com
- * using the Resend API (https://resend.com) update.
+ * using the Resend API (https://resend.com).
  */
 
-export async function onRequestOptions() {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  });
-}
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+};
 
-export async function onRequest(context) {
-  if (context.request.method === "OPTIONS") {
-    return onRequestOptions();
-  }
-
-  if (context.request.method === "POST") {
-    return onRequestPost(context);
-  }
-
-  return new Response(
-    JSON.stringify({ error: "Method not allowed. Use POST to submit the contact form." }),
-    {
-      status: 405,
+export async function handleContact(request, env) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
       headers: {
-        "Allow": "POST, OPTIONS",
-        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
-    }
-  );
-}
+    });
+  }
 
-export async function onRequestPost(context) {
-  const { request, env } = context;
-
-  const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  };
+  if (request.method !== "POST") {
+    return new Response(
+      JSON.stringify({ error: "Method not allowed. Use POST to submit the contact form." }),
+      {
+        status: 405,
+        headers: {
+          "Allow": "POST, OPTIONS",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   try {
     const body = await request.json();
@@ -89,7 +78,7 @@ export async function onRequestPost(context) {
 
     const resendApiKey = env.RESEND_API_KEY;
     if (!resendApiKey) {
-      console.error("RESEND_API_KEY is not configured in Cloudflare Pages environment variables.");
+      console.error("RESEND_API_KEY is not configured in Worker environment variables.");
       return new Response(
         JSON.stringify({
           error: "Email delivery service is not configured yet. Please email rich@attriato.com directly.",
