@@ -16,6 +16,7 @@ Search Jobs, Privacy Policy) built with Vite.
 npm install
 npm run dev       # local dev server
 npm run build      # production build -> dist/
+npm run deploy     # deploy the Pages site and Functions with Wrangler
 npm run preview    # preview the production build
 ```
 
@@ -38,3 +39,7 @@ npm run preview    # preview the production build
   directory, `npm run build` as its build command, and `dist` as its output
   directory. The root-level `functions/` directory must be included in the
   deployment so `/api/contact` is handled by the Pages Function.
+- Do not use `npx wrangler deploy` for this project. That is the Workers
+  deployment command and fails without a Worker entry point. Use the Pages
+  deployment command from `npm run deploy`, or leave the deploy command empty
+  when Cloudflare Pages is connected directly to this Git repository.
