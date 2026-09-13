@@ -1,4 +1,5 @@
 import { handleContact } from "./contact.js";
+import { handleJobs } from "./jobs.js";
 
 export default {
   async fetch(request, env) {
@@ -6,6 +7,10 @@ export default {
 
     if (url.pathname === "/api/contact") {
       return handleContact(request, env);
+    }
+
+    if (url.pathname === "/api/jobs") {
+      return handleJobs(request, env);
     }
 
     return env.ASSETS.fetch(request);

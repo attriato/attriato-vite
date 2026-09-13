@@ -10,18 +10,13 @@ const FALLBACK_JOBS = [
   { title: "Web Analytics Specialist (GA4 & Google Tag Manager)", company: "Smarty", location: "Orem, Utah County", date: "May 29, 2026", url: "https://www.adzuna.com" },
 ];
 
-function formatAdzunaJob(job) {
-  const title = job.title || "Analytics role";
-  const company = job.company?.display_name || "Unknown company";
-  const location = job.location?.display_name || "Remote";
-  const date = job.created || new Date().toISOString();
-
+function formatJob(job) {
   return {
-    title,
-    company,
-    location,
-    date: new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-    url: job.redirect_url || "https://www.adzuna.com",
+    title: job.title || "Analytics role",
+    company: job.company || "Unknown company",
+    location: job.location || "Remote",
+    date: new Date(job.date || Date.now()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    url: job.url || "https://www.adzuna.com",
   };
 }
 
@@ -31,41 +26,15 @@ export default function SearchJobs() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const appId = import.meta.env.VITE_ADZUNA_APP_ID;
-    const appKey = import.meta.env.VITE_ADZUNA_APP_KEY;
-
-    if (!appId || !appKey) {
-      setJobs(FALLBACK_JOBS);
-      setLoading(false);
-      setError("Add VITE_ADZUNA_APP_ID and VITE_ADZUNA_APP_KEY to your environment for live Adzuna job results.");
-      return;
-    }
-
-    const params = new URLSearchParams({
-      app_id: appId,
-      app_key: appKey,
-      what: "GA4 Google Analytics Google Tag Manager",
-      results_per_page: "10",
-      sort_by: "date",
-      max_days_old: "30",
-    });
-
-    fetch(`https://api.adzuna.com/v1/api/jobs/us/search/1?${params.toString()}`)
+    fetch("/api/jobs")
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Adzuna request failed: ${response.status}`);
+          throw new Error(`Job search request failed: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        const filtered = (data.results || [])
-          .filter((job) => {
-            const text = `${job.title || ""} ${job.description || ""}`.toLowerCase();
-            return text.includes("ga4") || text.includes("google analytics") || text.includes("google tag manager") || text.includes("gtm");
-          })
-          .slice(0, 10)
-          .map(formatAdzunaJob);
-
+        const filtered = (data.jobs || []).map(formatJob);
         setJobs(filtered.length ? filtered : FALLBACK_JOBS);
         setError("");
       })
