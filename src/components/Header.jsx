@@ -9,13 +9,17 @@ const LINKS = [
   { to: "/search-jobs", label: "Search Jobs" },
 ];
 
+function slugify(label) {
+  return label.toLowerCase().replace(/\s+/g, "-");
+}
+
 export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="site-header">
       <div className="container">
-        <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
+        <NavLink to="/" className="brand" data-gtm-id="header-logo" onClick={() => setOpen(false)}>
           <picture>
             <source srcSet="/images/attriato-logo.webp" type="image/webp" />
             <img
@@ -34,7 +38,7 @@ export default function Header() {
           <ul className="nav-links">
             {LINKS.map((l) => (
               <li key={l.to}>
-                <NavLink to={l.to} end={l.to === "/"}>
+                <NavLink to={l.to} end={l.to === "/"} data-gtm-id={`header-nav-${slugify(l.label)}`}>
                   {l.label}
                 </NavLink>
               </li>
@@ -44,6 +48,7 @@ export default function Header() {
             className="nav-toggle"
             aria-label="Toggle navigation"
             aria-expanded={open}
+            data-gtm-id="header-nav-toggle"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="nav-toggle-bar" />
@@ -54,7 +59,13 @@ export default function Header() {
       </div>
       <div className={`mobile-nav${open ? " open" : ""}`}>
         {LINKS.map((l) => (
-          <NavLink key={l.to} to={l.to} end={l.to === "/"} onClick={() => setOpen(false)}>
+          <NavLink
+            key={l.to}
+            to={l.to}
+            end={l.to === "/"}
+            data-gtm-id={`header-mobile-nav-${slugify(l.label)}`}
+            onClick={() => setOpen(false)}
+          >
             {l.label}
           </NavLink>
         ))}

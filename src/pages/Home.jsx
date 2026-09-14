@@ -52,8 +52,8 @@ export default function Home() {
               smarter marketing decisions.
             </p>
             <div className="btn-row">
-              <Link to="/contact" className="btn btn-primary">Book Now</Link>
-              <Link to="/services" className="btn btn-ghost">Explore Services</Link>
+              <Link to="/contact" className="btn btn-primary" data-gtm-id="home-hero-book-now">Book Now</Link>
+              <Link to="/services" className="btn btn-ghost" data-gtm-id="home-hero-explore-services">Explore Services</Link>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ export default function Home() {
           <h2>Analytics support that moves your business forward</h2>
           <div className="grid grid-3" style={{ marginTop: 46 }}>
             {SERVICES.map((s) => (
-              <Link to="/services" key={s.i} className="card">
+              <Link to="/services" key={s.i} className="card" data-gtm-id={`home-service-card-${s.i}`}>
                 <span className="icon">{s.img}</span>
                 <h3>{s.title}</h3>
                 <p style={{ marginBottom: 0 }}>{s.body}</p>
@@ -152,7 +152,7 @@ export default function Home() {
               <div className="stat-item"><span>Ongoing Improvement</span></div>
             </div>
             <div className="btn-row" style={{ marginTop: 28 }}>
-              <Link to="/about" className="btn btn-ghost">Learn More</Link>
+              <Link to="/about" className="btn btn-ghost" data-gtm-id="home-learn-more">Learn More</Link>
             </div>
           </div>
           <picture>
@@ -222,7 +222,7 @@ export default function Home() {
         </div>
       </section>
 
-      <CTABand />
+      <CTABand gtmId="home-cta-book-now" />
     </>
   );
 }

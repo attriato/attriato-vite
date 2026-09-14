@@ -135,7 +135,7 @@ export default function Contact() {
               helps you make clearer marketing decisions.
             </p>
             <div className="btn-row">
-              <a href="#get-in-touch" className="btn btn-primary">Book Now</a>
+              <a href="#get-in-touch" className="btn btn-primary" data-gtm-id="contact-hero-book-now">Book Now</a>
             </div>
           </div>
 
@@ -197,7 +197,7 @@ export default function Contact() {
               <textarea id="details" required value={form.details} onChange={update("details")} />
             </div>
             <div ref={turnstileContainerRef} aria-label="Cloudflare Turnstile verification" />
-            <button type="submit" className="btn btn-primary" disabled={isSending}>
+            <button type="submit" className="btn btn-primary" data-gtm-id="contact-form-submit" disabled={isSending}>
               {isSending ? "Sending..." : "Send Inquiry"}
             </button>
             <div className="form-status">{status}</div>

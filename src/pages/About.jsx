@@ -18,6 +18,7 @@ export default function About() {
                 target="_blank"
                 rel="noreferrer"
                 style={{ textDecoration: "underline" }}
+                data-gtm-id="about-linkedin-profile"
               >
                 Rich Morgan
               </a>
@@ -26,8 +27,8 @@ export default function About() {
               Allegiant Air, Hertz Car Rental, Honeywell Home, and First Alert.
             </p>
             <div className="btn-row">
-              <Link to="/contact" className="btn btn-primary">Book Now</Link>
-              <Link to="/services" className="btn btn-ghost">View Services</Link>
+              <Link to="/contact" className="btn btn-primary" data-gtm-id="about-hero-book-now">Book Now</Link>
+              <Link to="/services" className="btn btn-ghost" data-gtm-id="about-hero-view-services">View Services</Link>
             </div>
           </div>
 
@@ -73,7 +74,7 @@ export default function About() {
               align teams, and give marketing leaders confidence in what the
               numbers are really saying.
             </p>
-            <Link to="/contact" className="btn btn-ghost">Book Now</Link>
+            <Link to="/contact" className="btn btn-ghost" data-gtm-id="about-book-now-secondary">Book Now</Link>
           </div>
         </div>
       </section>
@@ -95,7 +96,7 @@ export default function About() {
               maintainable, and useful to the people making decisions every
               day.
             </p>
-            <Link to="/services" className="btn btn-ghost">See Services</Link>
+            <Link to="/services" className="btn btn-ghost" data-gtm-id="about-see-services">See Services</Link>
           </div>
           <picture>
             <source srcSet="/images/1174300472.webp" type="image/webp" />
@@ -114,6 +115,7 @@ export default function About() {
       <CTABand
         title="Ready for analytics you can trust?"
         body="If you need cleaner tracking, stronger reporting, and a clearer measurement strategy, Attriato is ready to help."
+        gtmId="about-cta-book-now"
       />
     </>
   );

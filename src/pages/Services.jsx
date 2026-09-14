@@ -25,6 +25,10 @@ const FAQ = [
   { q: "How do we get started?", a: "Start with a consultation through the contact form. From there, Attriato can recommend the right setup, audit, or support engagement." },
 ];
 
+function slugify(label) {
+  return label.toLowerCase().replace(/\s+/g, "-");
+}
+
 export default function Services() {
   return (
     <>
@@ -38,7 +42,7 @@ export default function Services() {
               decision-making.
             </p>
             <div className="btn-row">
-              <Link to="/contact" className="btn btn-primary">Book Now</Link>
+              <Link to="/contact" className="btn btn-primary" data-gtm-id="services-hero-book-now">Book Now</Link>
             </div>
           </div>
 
@@ -62,7 +66,7 @@ export default function Services() {
           <h2 style={{ maxWidth: 620 }}>Core services</h2>
           <div className="grid grid-3" style={{ marginTop: 40 }}>
             {CORE.map((s) => (
-              <Link to="/contact" key={s.i} className="card">
+              <Link to="/contact" key={s.i} className="card" data-gtm-id={`services-core-card-${s.i}`}>
                 <span className="index">{s.i}</span>
                 <h3>{s.title}</h3>
                 <p style={{ marginBottom: 0 }}>{s.body}</p>
@@ -88,7 +92,12 @@ export default function Services() {
                     <li key={it}>{it}</li>
                   ))}
                 </ul>
-                <Link to="/contact" className="btn btn-primary" style={{ justifyContent: "center" }}>
+                <Link
+                  to="/contact"
+                  className="btn btn-primary"
+                  style={{ justifyContent: "center" }}
+                  data-gtm-id={`services-tier-book-now-${slugify(t.title)}`}
+                >
                   Book Now
                 </Link>
               </div>

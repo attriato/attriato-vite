@@ -78,7 +78,7 @@ export default function SearchJobs() {
                       {j.company} · {j.location} · {j.date}
                     </span>
                   </div>
-                  <a href={j.url} target="_blank" rel="noreferrer" className="btn btn-ghost">
+                  <a href={j.url} target="_blank" rel="noreferrer" className="btn btn-ghost" data-gtm-id={`search-jobs-view-apply-${idx}`}>
                     View &amp; Apply
                   </a>
                 </div>
@@ -97,7 +97,7 @@ export default function SearchJobs() {
             measurement skill set.
           </p>
           <div className="btn-row">
-            <Link to="/contact" className="btn btn-primary">Book Now</Link>
+            <Link to="/contact" className="btn btn-primary" data-gtm-id="search-jobs-cta-book-now">Book Now</Link>
           </div>
         </div>
       </section>
