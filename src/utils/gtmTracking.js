@@ -123,7 +123,7 @@ export const pushLinkClick = (element, customEventName = "click") => {
   const linkType = tagName === "button" || classes.includes("btn") ? "button" : "link";
   const linkDomain = href ? new URL(href, window.location.origin).hostname : "";
   const outbound = isOutboundLink(href);
-  const gtmDataId = element.getAttribute("data-gtm-id") || "";
+  const dataGtmId = element.getAttribute("data-gtm-id") || "";
 
   pushToDataLayer(customEventName, {
     "dl.link_text": cleanLinkText(text),
@@ -132,7 +132,7 @@ export const pushLinkClick = (element, customEventName = "click") => {
     "dl.link_classes": classes,
     "dl.outbound": outbound,
     "dl.link_type": linkType,
-    "dl.gtm_data_id": gtmDataId,
+    "dl.data_gtm_id": dataGtmId,
   });
 };
 
