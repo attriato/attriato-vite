@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TURNSTILE_SITE_KEY = "0x4AAAAAAEYlBbGx1rj_trOF";
 
@@ -96,7 +96,7 @@ export default function Contact() {
         const errorMsg =
           result.error ||
           (response.status === 404
-            ? "API endpoint (/api/contact) not found. If testing locally, Pages Functions only run when deployed to Cloudflare Pages."
+            ? "API endpoint (/api/contact) not found. If testing locally, the Worker API only runs through the Wrangler dev server or after deployment."
             : `Failed to send message (HTTP ${response.status}). Please email rich@attriato.com directly.`);
         throw new Error(errorMsg);
       }

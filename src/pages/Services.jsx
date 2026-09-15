@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import CTABand from "../components/CTABand.jsx";
 
 const CORE = [
   { i: "01", title: "GA4 Setup", body: "Clean Google Analytics 4 configuration built around your business goals, reporting needs, and measurement plan." },

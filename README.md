@@ -32,13 +32,11 @@ npm run preview    # preview the production build
   self-contained build.
 - The `/search-jobs` page uses a static snapshot of listings captured at
   crawl time — the live site pulls these dynamically from Adzuna.
-- Cloudflare Pages reads `public/_headers` during deployment and adds RFC 8288
-  discovery links to the homepage. The linked JSON resources are emitted from
-  `public/` and should remain available at their documented paths.
-- The Cloudflare Pages project must use the repository root as its root
-  directory, `npm run build` as its build command, and `dist` as its output
-  directory. The root-level `functions/` directory must be included in the
-  deployment so `/api/contact` is handled by the Pages Function.
+- The Cloudflare Worker serves the built assets from `dist/` and preserves the
+  headers and discovery resources emitted from `public/`.
+- The Worker deployment uses the repository root, `npm run build` as its build
+  command, and `dist` as its asset directory. The Worker entry point is
+  `worker/index.js`, which handles `/api/contact` and `/api/jobs`.
 - Do not use `npx wrangler deploy` for this project. That is the Workers
   deployment command and fails without a Worker entry point. Use the Pages
   deployment command from `npm run deploy`, or leave the deploy command empty
