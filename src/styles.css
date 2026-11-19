@@ -916,42 +916,11 @@ button, input, textarea, select {
   margin: 8px 0 3px;
 }
 .ga4-metric small { font-size: 0.78rem; }
-.ga4-analysis {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  margin: 40px 0;
-  padding: 32px 0;
-}
-.ga4-analysis h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
-.ga4-findings {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 24px;
-}
-.ga4-finding {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  padding: 22px;
-}
-.ga4-finding h3 { margin: 12px 0; }
-.ga4-finding p:last-child { margin-bottom: 0; }
-.ga4-priority {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--slate);
-  text-transform: uppercase;
-}
-.ga4-priority--high { color: #8d2922; }
-.ga4-priority--medium { color: var(--amber); }
-.ga4-priority--low { color: var(--signal); }
-.ga4-limitations { margin-top: 24px; }
-.ga4-limitations h3 { font-size: 1.05rem; }
-.ga4-limitations ul { color: var(--slate); padding-left: 22px; }
 .ga4-comparisons {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px 24px;
+  margin-top: 40px;
 }
 .ga4-comparison-section { min-width: 0; }
 .ga4-comparison-section h3 { margin-bottom: 14px; }
@@ -998,7 +967,6 @@ button, input, textarea, select {
   .ga4-connect .btn { align-self: flex-start; }
   .ga4-controls,
   .ga4-metrics,
-  .ga4-findings,
   .ga4-comparisons,
   .ga4-segment-metrics { grid-template-columns: 1fr; }
   .ga4-results-heading { align-items: flex-start; }

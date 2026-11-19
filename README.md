@@ -38,45 +38,23 @@ npm run preview    # preview the production build
   command, and `dist` as its asset directory. The Worker entry point is
   `worker/index.js`, which handles `/api/contact`, `/api/jobs`, and the
   authenticated `/api/ga4/*` endpoints.
-- The GA4 Insights report requires server-side Google OAuth credentials and
-  a separately hosted Node.js service using the Copilot SDK. In Google Cloud,
+- The GA4 Insights report requires server-side Google OAuth credentials. In Google Cloud,
   enable the Google Analytics Data API and Admin API, configure a Web
   application OAuth client, and add
   `https://YOUR_DOMAIN/api/ga4/callback` as an authorized redirect URI.
   Grant the OAuth client the
   `https://www.googleapis.com/auth/analytics.readonly` scope and add authorized
   test users if the consent screen is in testing mode.
-- `OPENAI_API_KEY` and the Cloudflare Workers AI binding are no longer used.
-  The old OpenAI secret can be removed from the Worker with
-  `npx wrangler secret delete OPENAI_API_KEY`; removing the secret does not
-  revoke the key in the OpenAI account.
 - Configure these Cloudflare Worker secrets (never put them in the Vite client
   or commit them): `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
-  `GA4_SESSION_SECRET`, `GA4_REDIRECT_URI`, `COPILOT_ANALYSIS_URL`, and
-  `COPILOT_SERVICE_TOKEN`. Set `GA4_REDIRECT_URI` to the exact callback URI
-  registered with Google. Generate unique random values of at least 32 bytes
-  for `GA4_SESSION_SECRET` and `COPILOT_SERVICE_TOKEN`; for example, run
-  `openssl rand -hex 32` locally. Set the same `COPILOT_SERVICE_TOKEN` on the
-  Copilot service and the Worker. Add values to Cloudflare with
+  `GA4_SESSION_SECRET`, and `GA4_REDIRECT_URI`. Set `GA4_REDIRECT_URI` to the
+  exact callback URI registered with Google. Generate a random value of at
+  least 32 bytes for `GA4_SESSION_SECRET`; for example, run
+  `openssl rand -hex 32` locally. Add values to Cloudflare with
   `npx wrangler secret put SECRET_NAME`.
-- Deploy the Copilot SDK service from the repository's `render.yaml` Blueprint.
-  When Render prompts for environment values, set `COPILOT_GITHUB_TOKEN` to a
-  supported token for an account with Copilot access, and set
-  `COPILOT_SERVICE_TOKEN` to the shared random secret. After deployment, set
-  the Worker `COPILOT_ANALYSIS_URL` to the Render service's HTTPS URL ending in
-  `/analyze`. The service uses the GitHub Copilot SDK and requires Copilot
-  access; usage follows the Copilot plan's limits and billing. Render's free
-  web service can sleep when idle, so the first report after inactivity may
-  take longer. The token is passed to each Copilot session for authentication.
-  A fine-grained personal access token must be owned by the personal account
-  and have the **Copilot Requests** account permission; see
-  [supported token types](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/authenticate-copilot-cli#supported-token-types).
-- The report reads aggregate metrics from the selected GA4 property and sends
-  dates, metric and dimension names, channel groups, event names, device
-  categories, and landing-page paths (without query strings) to the Copilot
-  service for analysis. Protect the service from public access; the Worker
-  authenticates its requests with the shared secret. The report always covers
-  the last seven complete days and compares them with the preceding seven days.
+- The report reads aggregate metrics from the selected GA4 property. It does
+  not currently use an AI service. It covers the last seven complete days and
+  compares them with the preceding seven days.
   Google tokens are stored in an encrypted, HTTP-only cookie and can be revoked
   with the page's Disconnect action. Run the Worker locally with configured
   local secrets to exercise the API and OAuth callback.

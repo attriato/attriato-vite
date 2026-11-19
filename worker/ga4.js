@@ -16,7 +16,6 @@ const METRICS = [
   "screenPageViews",
   "bounceRate",
 ];
-const PERCENT_METRICS = new Set(["engagementRate", "sessionConversionRate", "bounceRate"]);
 const REPORTS = [
   { key: "totals", dimensions: [] },
   { key: "daily", dimensions: ["date"] },
@@ -227,121 +226,6 @@ async function runAnalyticsReport(propertyId, accessToken, dateRange, dateRangeN
   return reportRows(payload, dateRangeName);
 }
 
-function safeAiContext(reportData) {
-  const formatMetric = (name, value) => PERCENT_METRICS.has(name)
-    ? `${(value * 100).toFixed(1)}%`
-    : value;
-
-  const compareMetrics = (current = {}, previous = {}) => {
-    const metricNames = new Set([...Object.keys(current), ...Object.keys(previous)]);
-    return Object.fromEntries([...metricNames].filter((name) =>
-      typeof current[name] === "number" || typeof previous[name] === "number"
-    ).map((name) => {
-      const currentValue = current[name];
-      const previousValue = previous[name];
-      if (typeof currentValue !== "number" || typeof previousValue !== "number") {
-        return [name, {
-          current: typeof currentValue === "number" ? formatMetric(name, currentValue) : "not available",
-          previous: typeof previousValue === "number" ? formatMetric(name, previousValue) : "not available",
-          change: "not comparable",
-        }];
-      }
-
-      const change = currentValue - previousValue;
-      const relativeChange = previousValue === 0 ? null : `${change > 0 ? "+" : ""}${((change / previousValue) * 100).toFixed(1)}%`;
-      return [name, {
-        current: formatMetric(name, currentValue),
-        previous: formatMetric(name, previousValue),
-        change: PERCENT_METRICS.has(name)
-          ? `${change > 0 ? "+" : ""}${(change * 100).toFixed(1)} percentage points`
-          : `${change > 0 ? "+" : ""}${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(change)}`,
-        relativeChange,
-      }];
-    }));
-  };
-
-  return Object.fromEntries(Object.entries(reportData).map(([key, rows]) => {
-    if (key === "daily") {
-      return [key, {
-        dimensionName: "date",
-        rows: rows.map(({ date, dateRange, ...metrics }) => ({
-          date,
-          period: dateRange,
-          metrics: Object.fromEntries(Object.entries(metrics).map(([name, value]) => [name, formatMetric(name, value)])),
-        })),
-      }];
-    }
-
-    const groups = new Map();
-    for (const row of rows) {
-      const dimension = Object.keys(row).find((name) =>
-        !["dateRange", ...METRICS].includes(name)
-      );
-      const label = dimension ? row[dimension] : "overall";
-      const group = groups.get(label) || {};
-      group[row.dateRange] = Object.fromEntries(
-        Object.entries(row).filter(([name, value]) => name !== "dateRange" && name !== dimension && typeof value === "number")
-      );
-      groups.set(label, group);
-    }
-    const dimensionName = rows
-      .flatMap((row) => Object.keys(row))
-      .find((name) => !["dateRange", ...METRICS].includes(name)) || null;
-    return [key, {
-      dimensionName,
-      segments: [...groups.entries()].map(([dimensionValue, periods]) => ({
-        dimensionValue,
-        metrics: compareMetrics(periods.current, periods.comparison),
-      })),
-    }];
-  }));
-}
-
-async function analyzeReport(reportData, dateRanges, env) {
-  const analysisUrl = env.COPILOT_ANALYSIS_URL;
-  const serviceToken = env.COPILOT_SERVICE_TOKEN;
-  if (!analysisUrl || !serviceToken) {
-    throw new Error("Copilot analysis service is not configured.");
-  }
-
-  const response = await fetch(analysisUrl, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${serviceToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      dateRanges,
-      report: safeAiContext(reportData),
-    }),
-    signal: AbortSignal.timeout(120_000),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Copilot analysis service returned HTTP ${response.status}.`);
-  }
-
-  const result = await response.json();
-  const analysis = result?.analysis;
-
-  const validFindings = analysis && Array.isArray(analysis.findings) && analysis.findings.every((finding) =>
-    typeof finding.issue === "string" &&
-    typeof finding.evidence === "string" &&
-    typeof finding.recommendation === "string" &&
-    ["high", "medium", "low"].includes(finding.priority)
-  );
-  if (
-    !analysis ||
-    typeof analysis.summary !== "string" ||
-    !validFindings ||
-    !Array.isArray(analysis.limitations) ||
-    !analysis.limitations.every((limitation) => typeof limitation === "string")
-  ) {
-    throw new Error("Copilot returned an unexpected report format.");
-  }
-  return analysis;
-}
-
 async function handleConnect(request, env) {
   if (request.method !== "GET") return jsonResponse({ error: "Method not allowed." }, 405, { Allow: "GET" });
   try {
@@ -459,8 +343,7 @@ async function handleReport(request, env) {
         }
         reportData[definition.key] = rows;
       }));
-      const analysis = await analyzeReport(reportData, dateRanges, env);
-      return jsonResponse({ dateRanges, report: reportData, analysis });
+      return jsonResponse({ dateRanges, report: reportData });
     } catch (error) {
       const status = error.message?.includes("Choose ") ? 400 : error.message?.includes("not configured") ? 503 : 502;
       return jsonResponse({ error: error.message || "Unable to run the GA4 report." }, status);

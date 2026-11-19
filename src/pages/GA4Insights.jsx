@@ -178,34 +178,6 @@ function ComparisonSection({ rows, section }) {
   );
 }
 
-function Analysis({ analysis }) {
-  return (
-    <section className="ga4-analysis" aria-labelledby="ga4-analysis-title">
-      <p className="eyebrow">AI-assisted analysis</p>
-      <h2 id="ga4-analysis-title">Key insights, user friction &amp; opportunities</h2>
-      <p>{analysis.summary}</p>
-      {analysis.findings.length ? (
-        <div className="ga4-findings">
-          {analysis.findings.map((finding, index) => (
-            <article className="ga4-finding" key={`${finding.issue}-${index}`}>
-              <span className={`ga4-priority ga4-priority--${finding.priority}`}>{finding.priority || "insight"} priority</span>
-              <h3>{finding.issue}</h3>
-              <p><strong>Evidence:</strong> {finding.evidence}</p>
-              <p><strong>Recommended check:</strong> {finding.recommendation}</p>
-            </article>
-          ))}
-        </div>
-      ) : <p>No specific issues stood out in the available data.</p>}
-      {analysis.limitations.length > 0 && (
-        <div className="ga4-limitations">
-          <h3>Interpretation notes</h3>
-          <ul>{analysis.limitations.map((limitation, index) => <li key={`${limitation}-${index}`}>{limitation}</li>)}</ul>
-        </div>
-      )}
-    </section>
-  );
-}
-
 function ReportResults({ result }) {
   const currentLabel = "Last 7 complete days";
   const comparisonLabel = "Previous 7 days";
@@ -234,7 +206,6 @@ function ReportResults({ result }) {
           );
         })}
       </div>
-      <Analysis analysis={result.analysis} />
       <div className="ga4-comparisons">
         {SECTIONS.map((section) => (
           <ComparisonSection
@@ -347,7 +318,7 @@ export default function GA4Insights() {
           <p className="eyebrow">Practical analytics guidance</p>
           <h1 style={{ maxWidth: 760 }}>GA4 Insights</h1>
           <p style={{ maxWidth: 700, fontSize: "1.1rem" }}>
-            Connect your Google Analytics property to compare performance and get evidence-based recommendations for traffic, engagement, and conversions.
+            Connect your Google Analytics property to compare traffic, engagement, and conversions.
           </p>
           <div className="btn-row">
             <Link to="/contact" className="btn btn-ghost" data-gtm-id="ga4-insights-hero-contact">Talk to an expert</Link>
@@ -391,7 +362,7 @@ export default function GA4Insights() {
                 </div>
                 {propertyId && (
                   <button className="btn btn-primary ga4-run-button" type="submit" disabled={busy}>
-                    {busy ? "Analyzing report…" : "Run Report"}
+                    {busy ? "Loading report…" : "Run Report"}
                   </button>
                 )}
               </form>
@@ -401,7 +372,7 @@ export default function GA4Insights() {
               <p className="ga4-empty-properties">No GA4 properties were found for this Google account. Check that you have at least Viewer access to a GA4 property.</p>
             )}
             <p className="ga4-privacy-note">
-              Your Google access token is encrypted and stored in a secure, HTTP-only browser session. Cloudflare Workers AI receives aggregate metrics only; page URLs and event names are not sent.
+              Your Google access token is encrypted and stored in an HTTP-only browser session. Reports currently do not use AI analysis.
             </p>
             {notice && <p className="ga4-notice" role="status">{notice}</p>}
             {error && <p className="ga4-error" role="alert">{error}</p>}
