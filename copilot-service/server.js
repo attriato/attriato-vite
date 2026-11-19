@@ -146,11 +146,16 @@ export function createAnalysisServer({ token, analyze }) {
   });
 }
 
-export function createCopilotAnalyzer(client) {
+export function createCopilotAnalyzer(client, githubToken) {
+  if (typeof githubToken !== "string" || !githubToken.trim()) {
+    throw new Error("COPILOT_GITHUB_TOKEN must be configured.");
+  }
+
   return async (report, dateRanges) => {
     const session = await client.createSession({
       model: "auto",
       tools: { availableTools: [] },
+      github: { token: githubToken },
     });
     try {
       const response = await session.sendAndWait({

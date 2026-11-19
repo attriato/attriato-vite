@@ -69,11 +69,13 @@ test("rejects malformed or oversized request bodies", async () => {
 
 test("requests structured Copilot output and disconnects its session", async () => {
   let disconnected = false;
+  const githubToken = "test-github-token";
   const expected = { summary: "Summary", findings: [], limitations: [] };
   const analyze = createCopilotAnalyzer({
     async createSession(options) {
       assert.equal(options.model, "auto");
       assert.deepEqual(options.tools.availableTools, []);
+      assert.equal(options.github.token, githubToken);
       return {
         async sendAndWait(options) {
           assert.match(options.prompt, /sessionDefaultChannelGroup/);
@@ -86,7 +88,7 @@ test("requests structured Copilot output and disconnects its session", async () 
         },
       };
     },
-  });
+  }, githubToken);
 
   const analysis = await analyze({
     channels: {
@@ -96,4 +98,8 @@ test("requests structured Copilot output and disconnects its session", async () 
   }, []);
   assert.deepEqual(analysis, expected);
   assert.equal(disconnected, true);
+});
+
+test("requires a GitHub token for Copilot sessions", () => {
+  assert.throws(() => createCopilotAnalyzer({}, ""), /COPILOT_GITHUB_TOKEN/);
 });

@@ -15,7 +15,7 @@ const client = new CopilotClient({
 });
 const server = createAnalysisServer({
   token: process.env.COPILOT_SERVICE_TOKEN,
-  analyze: createCopilotAnalyzer(client),
+  analyze: createCopilotAnalyzer(client, process.env.COPILOT_GITHUB_TOKEN),
 });
 
 await client.start();

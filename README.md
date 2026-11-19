@@ -67,7 +67,10 @@ npm run preview    # preview the production build
   `/analyze`. The service uses the GitHub Copilot SDK and requires Copilot
   access; usage follows the Copilot plan's limits and billing. Render's free
   web service can sleep when idle, so the first report after inactivity may
-  take longer.
+  take longer. The token is passed to each Copilot session for authentication.
+  A fine-grained personal access token must be owned by the personal account
+  and have the **Copilot Requests** account permission; see
+  [supported token types](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/authenticate-copilot-cli#supported-token-types).
 - The report reads aggregate metrics from the selected GA4 property and sends
   dates, metric and dimension names, channel groups, event names, device
   categories, and landing-page paths (without query strings) to the Copilot
