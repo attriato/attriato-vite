@@ -6,6 +6,7 @@ const LINKS = [
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
+  { to: "/ga4-insights", label: "GA4 Insights" },
   { to: "/search-jobs", label: "Search Jobs" },
 ];
 

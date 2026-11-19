@@ -24,6 +24,11 @@ export const pageMeta = {
     description:
       "Book a consultation with Attriato for GA4 setup, GTM implementation, conversion tracking audits, and analytics strategy support.",
   },
+  "/ga4-insights": {
+    title: "GA4 Insights | Practical Analytics Guidance | Attriato",
+    description:
+      "Explore practical GA4 guidance on measurement planning, event tracking, and reporting that helps teams turn analytics data into better decisions.",
+  },
   "/search-jobs": {
     title: "GA4 & GTM Jobs | Recent Analytics Roles | Attriato",
     description:
@@ -101,6 +106,19 @@ export const pageSchemas = {
       "@type": "Organization",
       name: "Attriato",
       email: "rich@attriato.com",
+      url: "https://www.attriato.com/",
+    },
+  },
+  "/ga4-insights": {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "GA4 Insights",
+    url: "https://www.attriato.com/ga4-insights",
+    description:
+      "Practical guidance on GA4 measurement planning, event tracking, and analytics reporting.",
+    publisher: {
+      "@type": "Organization",
+      name: "Attriato",
       url: "https://www.attriato.com/",
     },
   },

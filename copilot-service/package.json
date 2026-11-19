@@ -1,0 +1,15 @@
+{
+  "name": "attriato-copilot-analysis",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0 <27"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@microsoft/copilot-sdk": "^2.0.1"
+  }
+}

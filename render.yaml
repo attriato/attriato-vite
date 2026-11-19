@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: attriato-copilot-analysis
+    runtime: docker
+    plan: free
+    region: ohio
+    dockerfilePath: ./copilot-service/Dockerfile
+    dockerContext: ./copilot-service
+    healthCheckPath: /health
+    envVars:
+      - key: COPILOT_GITHUB_TOKEN
+        sync: false
+      - key: COPILOT_SERVICE_TOKEN
+        sync: false

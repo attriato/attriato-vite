@@ -835,6 +835,176 @@ button, input, textarea, select {
 .footer-bottom a:hover { color: var(--signal-bright); }
 
 /* Jobs list */
+.ga4-hero .btn-row { margin-bottom: 32px; }
+.ga4-tool {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(22px, 4vw, 38px);
+  margin-top: 20px;
+}
+.ga4-tool-header,
+.ga4-connect,
+.ga4-results-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+.ga4-tool-header { margin-bottom: 26px; }
+.ga4-tool-header h2,
+.ga4-results-heading h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.ga4-tool-header p:last-child,
+.ga4-connect p { margin-bottom: 0; }
+.ga4-connect {
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 20px;
+}
+.ga4-connect h3 { margin-bottom: 8px; }
+.ga4-connect > div { max-width: 560px; }
+.ga4-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 16px;
+}
+.ga4-run-button { justify-self: start; }
+.ga4-privacy-note {
+  font-size: 0.82rem;
+  margin: 20px 0 0;
+  max-width: 800px;
+}
+.ga4-notice,
+.ga4-error,
+.ga4-empty-properties {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.ga4-notice { color: var(--signal); }
+.ga4-error { color: #8d2922; border-color: #d7aaa5; }
+.ga4-empty-properties { color: var(--amber); }
+.ga4-results { padding: 20px 0; }
+.ga4-results-heading { align-items: end; margin-bottom: 28px; }
+.ga4-period-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-align: right;
+  margin: 0;
+}
+.ga4-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.ga4-metric {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.ga4-metric span,
+.ga4-metric small { display: block; color: var(--slate); }
+.ga4-metric span { font-size: 0.85rem; }
+.ga4-metric strong {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 8px 0 3px;
+}
+.ga4-metric small { font-size: 0.78rem; }
+.ga4-analysis {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin: 40px 0;
+  padding: 32px 0;
+}
+.ga4-analysis h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.ga4-findings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.ga4-finding {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 22px;
+}
+.ga4-finding h3 { margin: 12px 0; }
+.ga4-finding p:last-child { margin-bottom: 0; }
+.ga4-priority {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--slate);
+  text-transform: uppercase;
+}
+.ga4-priority--high { color: #8d2922; }
+.ga4-priority--medium { color: var(--amber); }
+.ga4-priority--low { color: var(--signal); }
+.ga4-limitations { margin-top: 24px; }
+.ga4-limitations h3 { font-size: 1.05rem; }
+.ga4-limitations ul { color: var(--slate); padding-left: 22px; }
+.ga4-comparisons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 24px;
+}
+.ga4-comparison-section { min-width: 0; }
+.ga4-comparison-section h3 { margin-bottom: 14px; }
+.ga4-segment-list { display: grid; gap: 12px; }
+.ga4-segment-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.ga4-segment-card h4 {
+  margin: 0 0 14px;
+  overflow-wrap: anywhere;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.ga4-segment-primary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.ga4-segment-primary span { color: var(--slate); font-size: 0.84rem; }
+.ga4-segment-primary strong { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.ga4-segment-primary small { color: var(--slate); font-size: 0.78rem; }
+.ga4-segment-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 14px;
+}
+.ga4-segment-metric { min-width: 0; }
+.ga4-segment-metric span,
+.ga4-segment-metric strong,
+.ga4-segment-metric small { display: block; }
+.ga4-segment-metric span,
+.ga4-segment-metric small { color: var(--slate); font-size: 0.78rem; }
+.ga4-segment-metric strong { margin: 3px 0; font-size: 1.05rem; }
+@media (max-width: 640px) {
+  .ga4-tool-header,
+  .ga4-connect,
+  .ga4-results-heading { flex-direction: column; }
+  .ga4-connect .btn { align-self: flex-start; }
+  .ga4-controls,
+  .ga4-metrics,
+  .ga4-findings,
+  .ga4-comparisons,
+  .ga4-segment-metrics { grid-template-columns: 1fr; }
+  .ga4-results-heading { align-items: flex-start; }
+  .ga4-period-label { text-align: left; }
+}
+
 .job-item {
   display: flex;
   justify-content: space-between;
