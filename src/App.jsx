@@ -7,7 +7,6 @@ import Home from "./pages/Home.jsx";
 import Services from "./pages/Services.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-import GA4Insights from "./pages/GA4Insights.jsx";
 import SearchJobs from "./pages/SearchJobs.jsx";
 import Privacy from "./pages/Privacy.jsx";
 
@@ -130,7 +129,6 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/ga4-insights" element={<GA4Insights />} />
           <Route path="/search-jobs" element={<SearchJobs />} />
           <Route path="/privacy-policy" element={<Privacy />} />
         </Routes>
