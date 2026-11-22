@@ -2,7 +2,7 @@
 
 A single-page rebuild of [attriato.com](https://attriato.com), crawled and
 reconstructed as a client-routed React app (Home, Services, About, Contact,
-Search Jobs, Privacy Policy) built with Vite.
+Privacy Policy) built with Vite.
 
 ## Design
 
@@ -30,10 +30,8 @@ npm run preview    # preview the production build
   media library (`wp-content/uploads/...`). Swap in your own hosted assets
   or drop files into `public/` and update the `src` paths for a fully
   self-contained build.
-- The `/search-jobs` page uses a static snapshot of listings captured at
-  crawl time — the live site pulls these dynamically from Adzuna.
 - The Cloudflare Worker serves the built assets from `dist/` and preserves the
   headers and discovery resources emitted from `public/`.
 - The Worker deployment uses the repository root, `npm run build` as its build
   command, and `dist` as its asset directory. The Worker entry point is
-  `worker/index.js`, which handles `/api/contact` and `/api/jobs`.
+  `worker/index.js`, which handles `/api/contact`.

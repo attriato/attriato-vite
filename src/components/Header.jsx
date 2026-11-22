@@ -6,7 +6,6 @@ const LINKS = [
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
-  { to: "/search-jobs", label: "Search Jobs" },
 ];
 
 function slugify(label) {

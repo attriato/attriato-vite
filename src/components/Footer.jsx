@@ -17,7 +17,6 @@ export default function Footer() {
             <ul>
               <li><Link to="/" data-gtm-id="footer-home">Home</Link></li>
               <li><Link to="/about" data-gtm-id="footer-about">About</Link></li>
-              <li><Link to="/search-jobs" data-gtm-id="footer-search-jobs">Search Jobs</Link></li>
             </ul>
           </div>
           <div>

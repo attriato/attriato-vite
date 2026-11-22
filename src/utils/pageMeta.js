@@ -24,11 +24,6 @@ export const pageMeta = {
     description:
       "Book a consultation with Attriato for GA4 setup, GTM implementation, conversion tracking audits, and analytics strategy support.",
   },
-  "/search-jobs": {
-    title: "GA4 & GTM Jobs | Recent Analytics Roles | Attriato",
-    description:
-      "Browse recent GA4, Google Analytics, and Google Tag Manager job openings from the last 30 days and find relevant analytics opportunities.",
-  },
   "/privacy-policy": {
     title: "Privacy Policy | Attriato",
     description:
@@ -102,22 +97,6 @@ export const pageSchemas = {
       name: "Attriato",
       email: "rich@attriato.com",
       url: "https://www.attriato.com/",
-    },
-  },
-  "/search-jobs": {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "GA4 & GTM Jobs",
-    url: "https://www.attriato.com/search-jobs",
-    description:
-      "Recent GA4, Google Analytics, and Google Tag Manager job opportunities from the last 30 days.",
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "GA4 jobs" },
-        { "@type": "ListItem", position: 2, name: "Google Analytics roles" },
-        { "@type": "ListItem", position: 3, name: "Google Tag Manager jobs" },
-      ],
     },
   },
   "/privacy-policy": {
